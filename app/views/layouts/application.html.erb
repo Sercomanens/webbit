@@ -10,14 +10,22 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+  <body class="bg-gray-200 relative h-screen overflow-x-hidden">
 
-    <% if user_signed_in? %>
-      <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo: false } %>
-    <% else %>
-      <%= link_to "Log in", new_user_session_path %>
+    <% flash.each do |type, message| %>
+      <% if type == "alert" %>
+        <div class="bg-red-500"></div>
+        .container.px-2.mx-auto.py-4.text-white.text-center.font-medium.font-sans
+        <%= message %>
+      <% end %>
+    <% end %>
+
+<% flash.each do |type, message| %>
+      <% if type == "notice" %>
+        <div class="bg-green-500"></div>
+        .container.px-2.mx-auto.py-4.text-white.text-center.font-medium.font-sans
+        <%= message %>
+      <% end %>
     <% end %>
 
     <%= yield %>
