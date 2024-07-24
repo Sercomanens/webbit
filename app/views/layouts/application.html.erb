@@ -5,36 +5,33 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
-
-  <body class="bg-gray-200 relative h-screen overflow-x-hidden">
-
+  <body class="bg-gray-200 relative h-screen overflow-x-hidden accent-indigo-600">
     <% flash.each do |type, message| %>
       <% if type == "alert" %>
-        <div class="bg-red-500 container px-2 mx-auto py-4 text-white text-center font-medium font-sans">
-          <%= message %>
+        <div class="bg-red-500">
+          <div class="container px-2 mx-auto py-4 text-white text-center font-medium font-sans">
+            <%= message %>
+          </div>
         </div>
       <% end %>
-    <% end %>
-
-    <% flash.each do |type, message| %>
       <% if type == "notice" %>
-        <div class="bg-green-500 container px-2 mx-auto py-4 text-white text-center font-medium font-sans">
-          <%= message %>
+        <div class="bg-green-500">
+          <div class="container px-2 mx-auto py-4 text-white text-center font-medium font-sans">
+            <%= message %>
+          </div>
         </div>
       <% end %>
     <% end %>
-
     <nav class="bg-white py-2 border-b border-gray-400" role="navigation" aria-label="main navigation">
-      <div class="flex flex-wrap items-center justify-center lg:justify-start lg:content-center px-4 lg:px-6">
+      <div class="flex flex-wrap items-center justify-between px-4 lg:px-6">
         <%= link_to root_path, class: "leading-normal no-underline text-gray-800 my-2 md:my-0 hover:text-indigo-600" do %>
           <h1 class="text-lg pr-2 uppercase font-semibold">Webbit</h1>
         <% end %>
 
-        <div class="flex flex-wrap justify-start w-full lg:w-2/3">
+        <div class="flex flex-wrap justify-start lg:w-2/3 flex-1">
           <div class="w-full lg:w-1/4 px-0 md:px-2 mb-2 lg:mb-0">
             <div class="relative">
               <select>
@@ -55,9 +52,21 @@
             </div>
           </div>
         </div>
+
+        <div class="flex flex-wrap flex-1 items-center justify-end ">
+          <div class="mr-3">
+          <% if user_signed_in?%>
+            <%= link_to new_submission_path, class: "p-2" do %>
+              <%= render_svg "icons/create" %>
+            <% end %>
+          <% else %>
+            <%= link_to "Login", new_user_session_path, class: "btn btn-outline mr-4" %>
+            <%= link_to "Sign up", new_user_registration_path, class: "btn btn-indigo" %>
+          <% end %>
+          </div>
+        </div>
       </div>
     </nav>
-
     <%= yield %>
   </body>
 </html>
