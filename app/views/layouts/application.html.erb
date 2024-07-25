@@ -7,31 +7,30 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
   <body class="bg-gray-200 relative h-screen overflow-x-hidden">
 
     <% flash.each do |type, message| %>
       <% if type == "alert" %>
-        <div class="bg-red-500"></div>
-        .container.px-2.mx-auto.py-4.text-white.text-center.font-medium.font-sans
-        <%= message %>
+        <div class="bg-red-500 container px-2 mx-auto py-4 text-white text-center font-medium font-sans">
+          <%= message %>
+        </div>
       <% end %>
     <% end %>
 
-<% flash.each do |type, message| %>
+    <% flash.each do |type, message| %>
       <% if type == "notice" %>
-        <div class="bg-green-500"></div>
-        .container.px-2.mx-auto.py-4.text-white.text-center.font-medium.font-sans
-        <%= message %>
+        <div class="bg-green-500 container px-2 mx-auto py-4 text-white text-center font-medium font-sans">
+          <%= message %>
+        </div>
       <% end %>
     <% end %>
 
     <nav class="bg-white py-2 border-b border-gray-400" role="navigation" aria-label="main navigation">
       <div class="flex flex-wrap items-center justify-center lg:justify-start lg:content-center px-4 lg:px-6">
-
-        <%= link_to root_path, class: "leading-normal no-underline text-gray-800 my-2 md:my-0" do %>
+        <%= link_to root_path, class: "leading-normal no-underline text-gray-800 my-2 md:my-0 hover:text-indigo-600" do %>
           <h1 class="text-lg pr-2 uppercase font-semibold">Webbit</h1>
         <% end %>
       </div>
