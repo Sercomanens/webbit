@@ -1,15 +1,17 @@
 <li id="<%= dom_id submission %>">
-  <div class="">
-    <% if submission.media.attached? %>
-    <% if submission.media.video? %>
-      <%= video_tag submission.media %>
-    <% else %>
-      <%= image_tag submission.media, alt: submission.title, class: "" %>
+  <div class="px-2 py-3 flex items-center flex-wrap">
+    <div>
+      <% if submission.media.attached? %>
+      <% if submission.media.video? %>
+        <%= video_tag submission.media %>
+      <% else %>
+        <%= image_tag submission.media, alt: submission.title, class: "" %>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
 
-    <div class="pl-4">
-      <h3 class="mb-1 flex flex-wrap items-center text-xl">
+    <div class="<%= 'pl-4' if submission.media.attached? %>">
+      <h3 class="mb-1 flex flex-wrap font-bold items-center text-xl">
         <%= link_to submission.title, submission, class: "no-undeline"%>
          <% if submission.url? %>
           <span class="pl-2 text-xs font-normal font-mono text-indigo-400 tracking-tighter">
@@ -18,6 +20,23 @@
         <% end %>
 
       </h3>
+      <% if submission.body? %>
+      <div class="text-sm text-gray-700">
+        <%= truncate(submission.body, length: 240) %>
+      </div>
+      <% end %>
+
+      <% if user_signed_in? && current_user.id == submission.user_id %>
+      <% end %>
+        <div class="pt-2 flex flex-wrap items-center">
+          <%= link_to edit_submission_path(submission), class: "no-undeline mr-2" do %>
+          <%= render_svg "icons/edit", title: "Edit", styles: "fill-current text-gray-400 w-5 h-5 hover:text-indigo-600" %>
+          <% end %>
+
+          <%= link_to submission_path(submission), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "no-undeline mr-2" do %>
+          <%= render_svg "icons/delete", title: "Delete", styles: "fill-current text-gray-400 w-5 h-5 hover:text-indigo-600" %>
+          <% end %>
+        </div>
     </div>
   </div>
 </li>
