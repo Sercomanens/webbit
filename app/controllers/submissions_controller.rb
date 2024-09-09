@@ -23,6 +23,7 @@ class SubmissionsController < ApplicationController
   # POST /submissions or /submissions.json
   def create
     @submission = Submission.new(submission_params)
+    @submission.user = current_user  # Ensure the submission belongs to the logged-in user
 
     respond_to do |format|
       if @submission.save

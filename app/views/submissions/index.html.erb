@@ -1,18 +1,27 @@
 <% content_for :primary_content do %>
-  <h1>Submissions</h1>
-
-  <div id="submissions">
-    <ul class="divide-y">
-      <% @submissions.each do |submission| %>
-        <%= render submission %>
+  <% if @submissions.any? %> <!-- Changed `ant?` to `any?` for correct syntax -->
+    <div id="submissions">
+      <ul class="divide-y">
+        <% @submissions.each do |submission| %>
+          <%= render submission %>
+        <% end %>
+      </ul>
+    </div>
+  <% else %>
+    <div class="p-10 text-center">
+      <div class="flex justify-center mb-3">
+      <%= render_svg "icons/empty" %>
+      </div>
+      <p class="mb-4">Wow such empty...</p>
+      <% if user_signed_in? %> <!-- Changed `id` to `if` for correct syntax -->
+        <%= link_to "Create a new post", new_submission_path, class: "btn btn-indigo" %>
       <% end %>
-    </ul>
-  </div>
-
-<% end %>
+    </div>
+  <% end %> <!-- End of `if @submissions.any?` -->
+<% end %> <!-- End of `content_for :primary_content` -->
 
 <% content_for :secondary_content do %>
-  <%= link_to "New submission", new_submission_path %>
-<% end %>
+  <%= link_to "New submission", new_submission_path, class: "btn btn-indigo" %>
+<% end %> <!-- End of `content_for :secondary_content` -->
 
 <%= render "basic_layout" %>

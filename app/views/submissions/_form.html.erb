@@ -1,4 +1,4 @@
-<%= form_with(model: submission) do |form| %>
+<%= form_with(model: submission, local: true, data: { turbo: false }) do |form| %>
   <% if submission.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(submission.errors.count, "error") %> prohibited this submission from being saved:</h2>
@@ -11,27 +11,34 @@
     </div>
   <% end %>
 
-  <div>
+  <div calss="mb-6">
     <%= form.label :title, style: "display: block" %>
     <%= form.text_field :title %>
   </div>
 
-  <div>
+  <div calss="mb-6">
     <%= form.label :body, style: "display: block" %>
     <%= form.text_area :body %>
   </div>
 
-  <div>
+  <div calss="mb-6">
     <%= form.label :url, style: "display: block" %>
     <%= form.text_field :url %>
   </div>
 
-  <div>
-    <%= form.label :media, style: "display: block" %>
-    <%= form.file_field :media %>
-  </div>
+  <div class="hidden mb-6" data-tabs-target="media">
+      <%= form.label :media do %>
+        <span class="mb-1 inline-block">Attach a video or image</span>
+        <%= form.file_field :media, class: "block w-full text-sm text-gray-500
+      file:mr-4 file:py-2 file:px-4
+      file:rounded-full file:border-0
+      file:text-sm file:font-semibold
+      file:bg-indigo-50 file:text-indigo-700
+      hover:file:bg-indigo-100" %>
+      <% end %>
+    </div>
 
-  <div>
-    <%= form.submit %>
+  <div calss="mb-6">
+    <%= form.submit class: "btn btn-indigo" %>
   </div>
 <% end %>
