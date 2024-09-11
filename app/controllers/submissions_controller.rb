@@ -23,7 +23,7 @@ class SubmissionsController < ApplicationController
   # POST /submissions or /submissions.json
   def create
     @submission = Submission.new(submission_params)
-    @submission.user = current_user  # Ensure the submission belongs to the logged-in user
+    @submission.user_id = current_user_id  # Ensure the submission belongs to the logged-in user
 
     respond_to do |format|
       if @submission.save
@@ -67,6 +67,6 @@ class SubmissionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def submission_params
-      params.require(:submission).permit(:title, :body, :url, :media, :user_id)
+      params.require(:submission).permit(:title, :body, :url, :media)
     end
 end

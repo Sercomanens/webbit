@@ -1,44 +1,88 @@
-<%= form_with(model: submission, local: true, data: { turbo: false }) do |form| %>
-  <% if submission.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(submission.errors.count, "error") %> prohibited this submission from being saved:</h2>
+<div data-controller="tabs">
+  <%= form_with(model: submission, local: true, data: { turbo: false }) do |form| %>
+    <% if submission.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(submission.errors.count, "error") %> prohibited this submission from being saved:</h2>
 
-      <ul>
-        <% submission.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% submission.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-6 w-full lg:w-2/5">
+      <label for="#">Community</label>
+      <div class="relative">
+        <select class="select">
+          <option value="1">Category 1</option>
+          <option value="2">Category 2</option>
+          <option value="3">Category 3</option>
+          <option value="4">Category 4</option>
+        </select>
+        <div class="pointer-events-none absolute inset-y-5 right-2 flex items-center">
+          <%= render_svg "icons/chevron-down", styles: "fill-current w-5 h-5 text-gray-500" %>
+        </div>
+      </div>
     </div>
-  <% end %>
 
-  <div calss="mb-6">
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
+    <label for="submission_type">Submission type</label>
+    <nav role="submission type" class="mb-6">
+      <ul class="divide-x grid grid-cols-3 gap-0 rounded border shadow-sm">
+        <li>
+          <a href="#" data-action="click->tabs#toggle" data-tab-id="text" data-tabs-target="button" class="p-4 flex items-center justify-center group hover:text-indigo-600">
+            <%= render_svg "icons/text", styles: "group-hover:text-indigo-600 text-gray-500 w-5 h-5 fill-current mr-2" %>
+            Text
+          </a>
+        </li>
+        <li>
+          <a href="#" data-action="click->tabs#toggle" data-tab-id="url" data-tabs-target="button" class="p-4 flex items-center justify-center group hover:text-indigo-600">
+            <%= render_svg "icons/link", styles: "group-hover:text-indigo-600 text-gray-500 w-5 h-5 fill-current mr-2" %>
+            URL
+          </a>
+        </li>
+        <li>
+          <a href="#" data-action="click->tabs#toggle" data-tab-id="image" data-tabs-target="button" class="p-4 flex items-center justify-center group hover:text-indigo-600">
+            <%= render_svg "icons/image", styles: "group-hover:text-indigo-600 text-gray-500 w-5 h-5 fill-current mr-2" %>
+            Image or Video
+          </a>
+        </li>
+      </ul>
+    </nav>
 
-  <div calss="mb-6">
-    <%= form.label :body, style: "display: block" %>
-    <%= form.text_area :body %>
-  </div>
+    <div data-tabs-target="text">
+      <div class="mb-6">
+        <%= form.label :title, style: "display: block" %>
+        <%= form.text_field :title %>
+      </div>
 
-  <div calss="mb-6">
-    <%= form.label :url, style: "display: block" %>
-    <%= form.text_field :url %>
-  </div>
+      <div class="mb-6">
+        <%= form.label :body, style: "display: block" %>
+        <%= form.text_area :body %>
+      </div>
+    </div>
 
-  <div class="hidden mb-6" data-tabs-target="media">
+
+    <div data-tabs-target="url" class="mb-6">
+      <%= form.label :url, style: "display: block" %>
+      <%= form.text_field :url %>
+    </div>
+
+    <div class="hidden mb-6" data-tabs-target="media">
       <%= form.label :media do %>
         <span class="mb-1 inline-block">Attach a video or image</span>
         <%= form.file_field :media, class: "block w-full text-sm text-gray-500
-      file:mr-4 file:py-2 file:px-4
-      file:rounded-full file:border-0
-      file:text-sm file:font-semibold
-      file:bg-indigo-50 file:text-indigo-700
-      hover:file:bg-indigo-100" %>
+          file:mr-4 file:py-2 file:px-4
+          file:rounded-full file:border-0
+          file:text-sm file:font-semibold
+          file:bg-indigo-50 file:text-indigo-700
+          hover:file:bg-indigo-100" %>
       <% end %>
     </div>
 
-  <div calss="mb-6">
-    <%= form.submit class: "btn btn-indigo" %>
-  </div>
-<% end %>
+    <div class="mb-6">
+      <%= form.submit class: "btn btn-indigo" %>
+    </div>
+  <% end %>
+</div>
