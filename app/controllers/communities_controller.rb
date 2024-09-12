@@ -1,5 +1,6 @@
 class CommunitiesController < ApplicationController
   before_action :set_community, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, except: %i[ index show ]
 
   # GET /communities or /communities.json
   def index
@@ -12,7 +13,7 @@ class CommunitiesController < ApplicationController
 
   # GET /communities/new
   def new
-    @community = Community.new
+    @community = current_user.communities.build
   end
 
   # GET /communities/1/edit
@@ -21,7 +22,7 @@ class CommunitiesController < ApplicationController
 
   # POST /communities or /communities.json
   def create
-    @community = Community.new(community_params)
+    @community = current_user.communities.build(community_params)
 
     respond_to do |format|
       if @community.save
@@ -65,6 +66,6 @@ class CommunitiesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def community_params
-      params.require(:community).permit(:name, :title, :description, :sidebar, :user_id)
+      params.require(:community).permit(:name, :title, :description, :sidebar)
     end
 end
