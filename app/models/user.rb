@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   validates_uniqueness_of :username
   validates_presence_of :username
+  has_many :submissions, dependant: :destroy
+  has_many :communities
 end
