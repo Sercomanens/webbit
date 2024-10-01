@@ -1,10 +1,27 @@
-<h1>Editing community</h1>
+
+
+<% content_for :community_label, "Edit Community" %>
+
+<% content_for :community_label, "Edit Community" %>
+
+<%= content_for :primary_content do %>
+<h1 class="font-bold text-3xl mb-6" >Edit a community</h1>
 
 <%= render "form", community: @community %>
 
-<br>
+<% end %>
 
-<div>
-  <%= link_to "Show this community", @community %> |
-  <%= link_to "Back to communities", communities_path %>
-</div>
+<% content_for :secondary_content do %>
+  <div class="p-6">
+    <%= render_svg "community", styles: "max-w-full h-auto mb-4" %>
+    <h3 class="font-bold">Edit the <%= @community.name %> Community on Webbit</h3>
+    <p class="test-sm italic">Each community requires the following:</p>
+      <ul class="list-disc list-inside mt-4 leading-loose">
+        <li>A name</li>
+        <li>A title</li>
+        <li>A description</li>
+      </ul>
+    </div>
+<% end %>
+
+<%= render "basic_layout" %>

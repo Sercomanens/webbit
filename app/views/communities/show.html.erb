@@ -1,10 +1,15 @@
-<p style="color: green"><%= notice %></p>
 
-<%= render @community %>
+<% content_for :community_label, "w/#{@community.name}" %>
 
-<div>
-  <%= link_to "Edit this community", edit_community_path(@community) %> |
-  <%= link_to "Back to communities", communities_path %>
+<% content_for :primary_content do %>
 
-  <%= button_to "Destroy this community", @community, method: :delete %>
-</div>
+    <% @community.submissions.each do |submission| %>
+      <%= render "submissions/submission", submission: submission %>
+    <% end %>
+<% end %>
+
+<% content_for :secondary_content do %>
+  <%= render "sidebar", community: @community %>
+<% end %>
+
+<%= render "basic_layout" %>

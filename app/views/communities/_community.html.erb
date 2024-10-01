@@ -7,8 +7,18 @@
   <p class="text-xs text-gray-500">Last updated: <%= community.updated_at.to_formatted_s(:nice) %></p>
 
   <% if author_of?(community) %> <!-- Call the method directly here -->
-    <%= link_to edit_community_path(community), class: do %>
-      <%= render_svg "icons/edit", styles: "w-4 h-4 fill-current text-gray-500" %>
-    <% end %>
+    <div class="mt-6 flex-items-center space-x-3">
+        <%= link_to edit_community_path(community), class: "btn btn-gray-400 inline-flex intems-center text-gray-600 text-sm" do %>
+        Edit
+          <%= render_svg "icons/edit", styles: "w-4 h-4 fill-current text-gray-500 ml-2" %>
+        <% end %>
+
+        <%= button_to edit_community_path(community), method: :delete, class: "btn btn-gray-400 inline-flex intems-center text-gray-600 text-sm group-hover:text-red-600" do %>
+        Delete
+          <%= render_svg "icons/delete", styles: "w-4 h-4 fill-current text-gray-500 ml-2 group-hover:text-red-600" %>
+        <% end %>
+
+    </div>
   <% end %>
+
 </li>
