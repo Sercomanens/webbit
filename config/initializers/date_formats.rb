@@ -1,1 +1,1 @@
-Date::DATE_FORMATS[:custom] = "%b %e, %Y"
+Time::DATE_FORMATS[:nice] = "%b %e, %Y"

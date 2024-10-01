@@ -21,19 +21,7 @@ class CommunitiesController < ApplicationController
   end
 
   # POST /communities or /communities.json
-  def create
-    @community = current_user.communities.build(community_params)
 
-    respond_to do |format|
-      if @community.save
-        format.html { redirect_to community_url(@community), notice: "Community was successfully created." }
-        format.json { render :show, status: :created, location: @community }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @community.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
   # PATCH/PUT /communities/1 or /communities/1.json
   def update
