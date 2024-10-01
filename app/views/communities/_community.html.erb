@@ -1,27 +1,7 @@
-<div id="<%= dom_id community %>">
-  <p>
-    <strong>Name:</strong>
-    <%= community.name %>
-  </p>
-
-  <p>
-    <strong>Title:</strong>
-    <%= community.title %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= community.description %>
-  </p>
-
-  <p>
-    <strong>Sidebar:</strong>
-    <%= community.sidebar %>
-  </p>
-
-  <p>
-    <strong>User:</strong>
-    <%= community.user_id %>
-  </p>
-
-</div>
+<li id="<%= dom_id(community) %>" class="py-3">
+  <p class="text-sm text-gray-600">w/<%= community.name %></p>
+  <%= link_to community, class: "hover:text-indigo-600" do %>
+    <h3 class="font-semibold"><%= community.title %></h3>
+  <% end %>
+  <div class="prose prose-indigo"><%= truncate(community.description, length: 140) %></div>
+</li>
